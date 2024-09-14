@@ -4,20 +4,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-
 <form enctype="multipart/form-data" method="post" asp-controller="Home" asp-action="Upload">
-    @* <div class="row mt-2">
-        <div class="col-12">
-            <label class="col-form-label">Enter File Name For Save</label>
-            <input asp-for="FileName" class="form-control" />
-            <span asp-validation-for="FileName" class="text-danger"></span>
-        </div>
-    </div> *@
-
     <div class="row mt-2">
         <div class="col-12">
             <label class="col-form-label">Select File</label>
-            <input asp-for="File" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" data-url="sample" new { id="postedFile" } />
+            <input asp-for="File" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
             <span asp-validation-for="File" class="text-danger"></span>
         </div>
     </div>
@@ -25,7 +16,12 @@
     <div class="row mt-2">
         <div class="col-12">
             <button type="submit" class="btn btn-success">Upload File</button>
-            @* <button id="import" class="button" data-url="sample">Import</button> *@
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-12">
+            @Html.ActionLink("IMPORT", "Download", "Home")
         </div>
     </div>
 </form>
@@ -36,42 +32,4 @@
     {
         Html.RenderPartial("_RenderColumnNames", Model.ColumnNames);
     }
-}
-
-
-@section scripts {
-    <script type="text/javascript">
-        $(function () {
-            $("body")
-                .off("click", "#import")
-                .on("click", "#import", function () {
-                    debugger;
-                    var url = $(this).data("url");
-
-                    return false;
-                });
-
-
-            $("#postedFile").on("change", function (e) {
-                debugger;
-                var fileName = e.target.files[0].name;
-                var url = $(this).data("url");
-
-                return false;
-            });
-
-
-            // $("body")
-            //     // .off("change", "input[type=file]")
-            //     // .on("change", "input[type=file]", function () {
-            //     .off("change", "#postedFile")
-            //     .on("change", "#postedFile", function () {
-            //         debugger;
-            //         var fileName = this.files[0].name;
-            //         var url = $(this).data("url");
-
-            //         return false;
-            //     });
-        });
-    </script>
 }

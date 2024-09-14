@@ -4,6 +4,8 @@ using StoreInfo.Model;
 using StoreInfo.Service.Interface;
 using StoreInfo.Web.Models;
 using System.Diagnostics;
+using System.Net.Mime;
+using System.Text.Json;
 
 namespace StoreInfo.Web.Controllers
 {
@@ -56,6 +58,32 @@ namespace StoreInfo.Web.Controllers
             }
 
             return View("Index", model);
+        }
+
+
+        public FileStreamResult Download()
+        {
+            string sourcefile = Path.Combine(Directory.GetCurrentDirectory(), _appSetting.TargetDirectory, "Sample import.xlsx");
+            string filename = $"importFile_{DateTime.Now:MMddyyyy_HHmmss}.json";
+
+            var json = JsonSerializer.Serialize(new { Message = "File does not exist." });
+            if (System.IO.File.Exists(sourcefile))
+            {
+                var records = _storeInfoService.GetAllAsync(sourcefile);
+                json = JsonSerializer.Serialize(records);
+            }
+            var characters = json.ToCharArray();
+            var bytes = new byte[characters.Length];
+
+            for (var i = 0; i < characters.Length; i++)
+            {
+                bytes[i] = (byte)characters[i];
+            }
+            var stream = new MemoryStream();
+            stream.Write(bytes);
+            stream.Position = 0;
+
+            return File(stream, MediaTypeNames.Application.Octet, filename);
         }
 
 
