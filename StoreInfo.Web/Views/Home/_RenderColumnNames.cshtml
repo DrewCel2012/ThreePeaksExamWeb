@@ -1,0 +1,12 @@
+﻿@model IEnumerable<string>
+
+@{
+    foreach (var item in Model)
+    {
+        <div class="row mt-2">
+            <div class="col-12">
+                <label class="col-form-label">@item</label>
+            </div>
+        </div>
+    }        
+}
