@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/StoreInfo.Solution
+/StoreInfo.Model
+/StoreInfo.Web/bin/Debug/net6.0
+/StoreInfo.Web/obj
+/StoreInfo.Web/wwwroot/Files
+/StoreInfo.Common
+/StoreInfo.Repository
+/StoreInfo.Service
+/StoreInfo.Test
